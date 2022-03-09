@@ -1,20 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NativeBaseProvider } from "native-base";
+import { FC } from "react";
+import MainNavigation from "./src/navigation/MainNavigation";
+import { LogBox } from "react-native";
+import { Provider } from "react-redux";
+import reduxStore from "./redux/store";
 
-export default function App() {
+// Ignore this warning.
+LogBox.ignoreLogs(["Setting a timer for a long period of time"]);
+
+const App: FC = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NativeBaseProvider>
+      <Provider store={reduxStore}>
+        <MainNavigation />
+      </Provider>
+    </NativeBaseProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
