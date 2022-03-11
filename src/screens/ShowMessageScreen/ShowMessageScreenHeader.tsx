@@ -2,7 +2,12 @@ import { Box, Button, Image, Text } from "native-base";
 import { FC } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  Feather,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { Platform } from "react-native";
 import useShowMessageScreenHeaderLogic from "./Logic/useShowMessageScreenHeaderLogic";
 
@@ -17,8 +22,18 @@ const ShowMessageScreenHeader: FC<Props> = ({
   personName,
   otherPersonId,
 }) => {
-  const { handleNavigateBack, hanleMakeVideoCall, hanleMakeVoice } =
-    useShowMessageScreenHeaderLogic(otherPersonId);
+  const {
+    handleNavigateBack,
+    hanleMakeVideoCall,
+    hanleMakeVoiceCall,
+    gettingCall,
+    areYouTalking,
+    handleAnswereCall,
+    handleDenyCall,
+    handleEndCall,
+    makingCall,
+    callPicked,
+  } = useShowMessageScreenHeaderLogic(otherPersonId);
 
   return (
     <Box
@@ -31,6 +46,153 @@ const ShowMessageScreenHeader: FC<Props> = ({
       paddingY={"4"}
       pt={Platform.OS === "ios" ? 12 : 5}
     >
+      {/* Visible when you are getting a New call */}
+      {gettingCall && (
+        <Box
+          position={"absolute"}
+          zIndex={"2"}
+          bottom={"0"}
+          right={2}
+          top={"0"}
+          width={"65%"}
+          bgColor={"#65C18C"}
+          borderRadius={"5"}
+        >
+          <Text textAlign={"center"} color={"#FDEFF4"} fontSize={"15"}>
+            {personName} is calling
+          </Text>
+
+          <Box
+            mt={4}
+            flexDirection={"row"}
+            width={"100%"}
+            justifyContent={"center"}
+          >
+            <Button
+              padding={0}
+              bgColor={"transparent"}
+              mr={10}
+              onPress={handleAnswereCall}
+            >
+              <Feather name="phone-call" size={26} color="black" />
+            </Button>
+
+            <Button
+              padding={0}
+              bgColor={"transparent"}
+              onPress={handleDenyCall}
+            >
+              <MaterialCommunityIcons
+                name="phone-cancel"
+                size={26}
+                color="#FC4F4F"
+              />
+            </Button>
+          </Box>
+        </Box>
+      )}
+
+      {makingCall && (
+        <Box
+          position={"absolute"}
+          zIndex={"2"}
+          bottom={"0"}
+          right={2}
+          top={"0"}
+          width={"60%"}
+          bgColor={"#65C18C"}
+          borderRadius={"5"}
+        >
+          <Text textAlign={"center"} color={"#FDEFF4"} fontSize={"15"}>
+            Calling to {personName}
+          </Text>
+
+          <Box
+            mt={4}
+            flexDirection={"row"}
+            width={"100%"}
+            justifyContent={"center"}
+          >
+            <Button
+              padding={0}
+              bgColor={"transparent"}
+              mr={10}
+              onPress={handleEndCall}
+            >
+              <MaterialIcons name="call-end" size={30} color="#FC4F4F" />
+            </Button>
+          </Box>
+        </Box>
+      )}
+
+      {/* Visible when you have picked up call */}
+      {areYouTalking && (
+        <Box
+          position={"absolute"}
+          zIndex={"2"}
+          bottom={"0"}
+          right={2}
+          top={"0"}
+          width={"50%"}
+          bgColor={"#65C18C"}
+          borderRadius={"5"}
+        >
+          <Text textAlign={"center"} color={"#FDEFF4"} fontSize={"15"}>
+            You are Talking
+          </Text>
+
+          <Box
+            mt={4}
+            flexDirection={"row"}
+            width={"100%"}
+            justifyContent={"center"}
+          >
+            <Button
+              padding={0}
+              bgColor={"transparent"}
+              mr={10}
+              onPress={handleEndCall}
+            >
+              <MaterialIcons name="call-end" size={30} color="#FC4F4F" />
+            </Button>
+          </Box>
+        </Box>
+      )}
+
+      {/* Called someone and they picked the call */}
+      {callPicked && (
+        <Box
+          position={"absolute"}
+          zIndex={"2"}
+          bottom={"0"}
+          right={2}
+          top={"0"}
+          width={"70%"}
+          bgColor={"#65C18C"}
+          borderRadius={"5"}
+        >
+          <Text textAlign={"center"} color={"#FDEFF4"} fontSize={"15"}>
+            Call picked by {personName}
+          </Text>
+
+          <Box
+            mt={4}
+            flexDirection={"row"}
+            width={"100%"}
+            justifyContent={"center"}
+          >
+            <Button
+              padding={0}
+              bgColor={"transparent"}
+              mr={10}
+              onPress={handleEndCall}
+            >
+              <MaterialIcons name="call-end" size={30} color="#FC4F4F" />
+            </Button>
+          </Box>
+        </Box>
+      )}
+
       <Box ml={"3"} flexDirection={"row"} alignItems={"center"}>
         <Button
           padding={0}
@@ -70,7 +232,7 @@ const ShowMessageScreenHeader: FC<Props> = ({
 
       <Box flexDirection="row" textAlign={"center"} mr={"4"}>
         <Button
-          onPress={hanleMakeVoice}
+          onPress={hanleMakeVoiceCall}
           bgColor={"#F4F4F4"}
           padding={"2"}
           mr="4"

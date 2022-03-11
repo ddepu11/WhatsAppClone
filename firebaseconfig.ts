@@ -1,6 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  initializeFirestore,
+  setLogLevel,
+} from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -13,10 +17,14 @@ const firebaseConfig = {
 };
 
 // appId: Constants.manifest?.extra?.appId
+
 const app = initializeApp(firebaseConfig);
 
+const firestoreDB = initializeFirestore(app, {
+  experimentalForceLongPolling: true,
+});
+
 const auth = getAuth();
-const firestoreDB = getFirestore();
 
 const firebaseStorage = getStorage();
 
