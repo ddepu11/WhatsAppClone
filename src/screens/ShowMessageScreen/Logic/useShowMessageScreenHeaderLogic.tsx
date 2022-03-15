@@ -52,7 +52,7 @@ const useShowMessageScreenHeaderLogic = (otherPersonId: string) => {
 
     if (localPeer.current) {
       localPeer.current.on("open", (localPeerId: any) => {
-        console.log(`${firstName} ${lastName} open with ID`, localPeerId);
+        // console.log(`${firstName} ${lastName} open with ID`, localPeerId);
       });
 
       localPeer.current.on("call", function (call: any) {
@@ -107,13 +107,13 @@ const useShowMessageScreenHeaderLogic = (otherPersonId: string) => {
       if (localPeer.current) {
         localPeer.current.disconnect();
         // localPeer.current.destroy();
-        console.log("Local peer is Disconnected");
+        // console.log("Local peer is Disconnected");
       }
 
       if (remotePeer.current) {
         remotePeer.current.disconnect();
         // remotePeer.current.destroy();
-        console.log("Remote peer is Disconnected");
+        // console.log("Remote peer is Disconnected");
       }
     };
   }, []);
