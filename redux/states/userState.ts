@@ -17,6 +17,7 @@ const initialState: userState = {
     lastName: "",
     userName: "",
     id: "",
+    isOnline: false,
   },
 };
 
