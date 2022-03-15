@@ -15,12 +15,14 @@ interface Props {
   displayPicUrl: string;
   personName: string;
   otherPersonId: string;
+  isOnline: boolean | undefined;
 }
 
 const ShowMessageScreenHeader: FC<Props> = ({
   displayPicUrl,
   personName,
   otherPersonId,
+  isOnline,
 }) => {
   const {
     handleNavigateBack,
@@ -43,7 +45,7 @@ const ShowMessageScreenHeader: FC<Props> = ({
       alignItems={"center"}
       justifyContent={"space-between"}
       color={"#000000"}
-      paddingY={"4"}
+      paddingY={"2.5"}
       pt={Platform.OS === "ios" ? 12 : 5}
     >
       {/* Visible when you are getting a New call */}
@@ -211,23 +213,30 @@ const ShowMessageScreenHeader: FC<Props> = ({
           ml={"4"}
         />
 
-        <Text
-          fontSize={"16"}
-          fontWeight={"700"}
-          lineHeight={"23.5"}
-          color={"#000000"}
+        <Box
           ml={"5"}
+          borderWidth={"0"}
         >
-          {personName}
-        </Text>
-        {/* <Text
-          fontWeight={'400'}
-          fontSize={'12'}
-          lineHeight={'17.63'}
-          color={'#000000'}
-        >
-          Online
-        </Text> */}
+          <Text
+            fontSize={"16"}
+            fontWeight={"700"}
+            lineHeight={"23.5"}
+            color={"#000000"}
+          >
+            {personName}
+          </Text>
+
+          {isOnline && (
+            <Text
+              fontWeight={"400"}
+              fontSize={"12"}
+              lineHeight={"17.63"}
+              color={"#000000"}
+            >
+              Online
+            </Text>
+          )}
+        </Box>
       </Box>
 
       <Box flexDirection="row" textAlign={"center"} mr={"4"}>
