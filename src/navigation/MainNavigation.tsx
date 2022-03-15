@@ -1,5 +1,5 @@
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { FC, useEffect, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { FC, useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import AppStack from "./AppStack";
