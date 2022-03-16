@@ -25,7 +25,7 @@ const MessageWithImageSent: FC<Props> = ({ picURL, createdOn }) => {
       <Box flexDirection={'row'}>
         <Image
           source={{ uri: picURL }}
-          alt="random image"
+          alt='random image'
           width={200}
           height={250}
           mr={2}
@@ -79,7 +79,7 @@ const MessageWithImageSent: FC<Props> = ({ picURL, createdOn }) => {
         borderTopRightRadius={'20'}
         borderBottomLeftRadius={'20'}
         style={{
-          transform: [{ rotateY: '0deg' }, { rotateX: '50deg' }]
+          transform: [{ rotateY: '0deg' }, { rotateX: '50deg' }],
         }}
       />
 

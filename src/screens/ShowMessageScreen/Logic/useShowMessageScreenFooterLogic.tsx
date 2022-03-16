@@ -10,11 +10,11 @@ import {
   getDownloadURL,
   ref,
   uploadBytes,
-  uploadBytesResumable
+  uploadBytesResumable,
 } from 'firebase/storage'
 import {
   messageSendFailure,
-  messageSendRequest
+  messageSendRequest,
 } from '../../../../redux/states/messagesState'
 import { Recording } from 'expo-av/build/Audio'
 
@@ -50,7 +50,7 @@ const useShowMessageScreenFooterLogic = ({ chatId }: Props) => {
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [5, 6],
-        quality: 1
+        quality: 1,
       })
 
       if (result && !result.cancelled) {
@@ -101,13 +101,13 @@ const useShowMessageScreenFooterLogic = ({ chatId }: Props) => {
             await addDoc(collection(firestoreDB, 'chats', chatId, 'messages'), {
               createdOn: Date.now(),
               picURL,
-              userId: id
+              userId: id,
             })
 
             const chatRef = doc(firestoreDB, 'chats', chatId)
 
             await updateDoc(chatRef, {
-              updatedOn: Date.now()
+              updatedOn: Date.now(),
             })
           }
         )
@@ -125,7 +125,7 @@ const useShowMessageScreenFooterLogic = ({ chatId }: Props) => {
       await addDoc(collection(firestoreDB, 'chats', chatId, 'messages'), {
         createdOn: Date.now(),
         text: message,
-        userId: id
+        userId: id,
       })
 
       setMessage('')
@@ -133,7 +133,7 @@ const useShowMessageScreenFooterLogic = ({ chatId }: Props) => {
       const chatRef = doc(firestoreDB, 'chats', chatId)
 
       await updateDoc(chatRef, {
-        updatedOn: Date.now()
+        updatedOn: Date.now(),
       })
     } catch (err: any) {
       console.log(err.code)
@@ -158,7 +158,7 @@ const useShowMessageScreenFooterLogic = ({ chatId }: Props) => {
 
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
-        playsInSilentModeIOS: true
+        playsInSilentModeIOS: true,
       })
 
       console.log('Starting recording..')
@@ -246,13 +246,13 @@ const useShowMessageScreenFooterLogic = ({ chatId }: Props) => {
       await addDoc(collection(firestoreDB, 'chats', chatId, 'messages'), {
         createdOn: Date.now(),
         audioURL,
-        userId: id
+        userId: id,
       })
 
       const chatRef = doc(firestoreDB, 'chats', chatId)
 
       await updateDoc(chatRef, {
-        updatedOn: Date.now()
+        updatedOn: Date.now(),
       })
     } catch (err: any) {
       dispatch(messageSendFailure())
@@ -287,7 +287,7 @@ const useShowMessageScreenFooterLogic = ({ chatId }: Props) => {
     playRecordedAudio,
     handleStopPlayingAudio,
     handleCancelAttachAudio,
-    handleSendAudio
+    handleSendAudio,
   }
 }
 

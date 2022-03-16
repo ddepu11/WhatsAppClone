@@ -3,7 +3,7 @@ import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha'
 import {
   ApplicationVerifier,
   PhoneAuthProvider,
-  signInWithCredential
+  signInWithCredential,
 } from 'firebase/auth'
 import {
   Box,
@@ -14,16 +14,16 @@ import {
   Spinner,
   StatusBar,
   Text,
-  View
+  View,
 } from 'native-base'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import { Alert, StyleSheet, TextInput } from 'react-native'
 import { app, auth } from '../../firebaseconfig'
 import {
   logInFailed,
   logInSuccess,
   userLoadingEnds,
-  userLoadingStarts
+  userLoadingStarts,
 } from '../../redux/states/userState'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import Routes from '../constants/routes'
@@ -52,7 +52,7 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
     digit3: '',
     digit4: '',
     digit5: '',
-    digit6: ''
+    digit6: '',
   })
 
   const [resendLoading, setResendLoading] = useState(false)
@@ -104,7 +104,7 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
       digit2.current?.focus()
     }
 
-    setOTP(prevOTP => ({ ...prevOTP, digit1 }))
+    setOTP((prevOTP) => ({ ...prevOTP, digit1 }))
   }
 
   const handleDigit2 = (digit2: string): void => {
@@ -112,7 +112,7 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
       digit3.current?.focus()
     }
 
-    setOTP(prevOTP => ({ ...prevOTP, digit2 }))
+    setOTP((prevOTP) => ({ ...prevOTP, digit2 }))
   }
 
   const handleDigit3 = (digit3: string): void => {
@@ -120,14 +120,14 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
       digit4.current?.focus()
     }
 
-    setOTP(prevOTP => ({ ...prevOTP, digit3 }))
+    setOTP((prevOTP) => ({ ...prevOTP, digit3 }))
   }
 
   const handleDigit4 = (digit4: string): void => {
     if (digit4 !== '') {
       digit5.current?.focus()
     }
-    setOTP(prevOTP => ({ ...prevOTP, digit4 }))
+    setOTP((prevOTP) => ({ ...prevOTP, digit4 }))
   }
 
   const handleDigit5 = (digit5: string): void => {
@@ -135,31 +135,31 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
       digit6.current?.focus()
     }
 
-    setOTP(prevOTP => ({ ...prevOTP, digit5 }))
+    setOTP((prevOTP) => ({ ...prevOTP, digit5 }))
   }
 
   const handleDigit6 = (digit6: string): void => {
-    setOTP(prevOTP => ({ ...prevOTP, digit6 }))
+    setOTP((prevOTP) => ({ ...prevOTP, digit6 }))
   }
 
-  const { isLoading } = useAppSelector(state => state.user.value)
+  const { isLoading } = useAppSelector((state) => state.user.value)
 
   return (
     <View flex={1} color={'#FFFFFF'}>
-      <StatusBar barStyle="dark-content" backgroundColor="#ececec" />
+      <StatusBar barStyle='dark-content' backgroundColor='#ececec' />
 
       <FirebaseRecaptchaVerifierModal
         ref={recaptchaVerifierRef}
         firebaseConfig={app.options}
-        title="Prove you are human!"
-        cancelLabel="Close"
+        title='Prove you are human!'
+        cancelLabel='Close'
         // attemptInvisibleVerification={true}
       />
-      <Center flex={1} justifyContent="center">
+      <Center flex={1} justifyContent='center'>
         <View style={styles.topBackground}></View>
 
         <View style={styles.welcome}>
-          <Image source={Icon} alt="App Icon" width={'80px'} height={'80px'} />
+          <Image source={Icon} alt='App Icon' width={'80px'} height={'80px'} />
 
           <Text
             color={'#000000'}
@@ -178,7 +178,7 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
             fontSize={'14'}
             mt={2}
             width={'70%'}
-            textAlign="center"
+            textAlign='center'
           >
             Enter OTP code sent to your mobile number {countryCode}
             {mobileNumber}
@@ -204,7 +204,7 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
               ref={digit1}
               value={OTP.digit1}
               onChangeText={handleDigit1}
-              onKeyPress={e => {
+              onKeyPress={(e) => {
                 if (e.nativeEvent.key === 'Backspace') {
                   digit1.current?.focus()
                 }
@@ -228,7 +228,7 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
               ref={digit2}
               value={OTP.digit2}
               onChangeText={handleDigit2}
-              onKeyPress={e => {
+              onKeyPress={(e) => {
                 if (e.nativeEvent.key === 'Backspace') {
                   digit1.current?.focus()
                 }
@@ -247,7 +247,7 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
               ref={digit3}
               value={OTP.digit3}
               onChangeText={handleDigit3}
-              onKeyPress={e => {
+              onKeyPress={(e) => {
                 if (e.nativeEvent.key === 'Backspace') {
                   digit2.current?.focus()
                 }
@@ -266,7 +266,7 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
               ref={digit4}
               value={OTP.digit4}
               onChangeText={handleDigit4}
-              onKeyPress={e => {
+              onKeyPress={(e) => {
                 if (e.nativeEvent.key === 'Backspace') {
                   digit3.current?.focus()
                 }
@@ -285,7 +285,7 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
               ref={digit5}
               value={OTP.digit5}
               onChangeText={handleDigit5}
-              onKeyPress={e => {
+              onKeyPress={(e) => {
                 if (e.nativeEvent.key === 'Backspace') {
                   digit4.current?.focus()
                 }
@@ -303,7 +303,7 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
               ref={digit6}
               value={OTP.digit6}
               onChangeText={handleDigit6}
-              onKeyPress={e => {
+              onKeyPress={(e) => {
                 if (e.nativeEvent.key === 'Backspace') {
                   digit5.current?.focus()
                 }
@@ -379,14 +379,14 @@ const styles = StyleSheet.create({
     height: 600,
     borderRadius: 100 / 0.1,
     position: 'absolute',
-    top: -200
+    top: -200,
   },
 
   welcome: {
     width: '100%',
     alignItems: 'center',
-    marginBottom: 70
-  }
+    marginBottom: 70,
+  },
 })
 
 export default OTPScreen

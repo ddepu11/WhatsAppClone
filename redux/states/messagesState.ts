@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  value: { sendMessageLoading: false }
+  value: { sendMessageLoading: false },
 }
 
 const messagesSlice = createSlice({
@@ -9,18 +9,18 @@ const messagesSlice = createSlice({
   initialState,
 
   reducers: {
-    messageSendRequest: state => {
+    messageSendRequest: (state) => {
       state.value = { ...state.value, sendMessageLoading: true }
     },
 
-    messageSendSuccess: state => {
+    messageSendSuccess: (state) => {
       state.value = { ...state.value, sendMessageLoading: false }
     },
 
-    messageSendFailure: state => {
+    messageSendFailure: (state) => {
       state.value = { ...state.value, sendMessageLoading: false }
-    }
-  }
+    },
+  },
 })
 
 export const { messageSendFailure, messageSendRequest, messageSendSuccess } =

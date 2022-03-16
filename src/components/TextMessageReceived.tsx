@@ -44,7 +44,7 @@ const TextMessageReceived: FC<Props> = ({ message, createdOn }) => {
         borderTopRightRadius={'20'}
         borderBottomLeftRadius={'20'}
         style={{
-          transform: [{ rotateY: '180deg' }, { rotateX: '50deg' }]
+          transform: [{ rotateY: '180deg' }, { rotateX: '50deg' }],
         }}
       />
 

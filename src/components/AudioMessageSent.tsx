@@ -22,7 +22,7 @@ const AudioMessageSent: FC<Props> = ({ audioURL, createdOn }) => {
 
     try {
       const { sound } = await Audio.Sound.createAsync({
-        uri: audioURL as string
+        uri: audioURL as string,
       })
       setSound(sound)
 
@@ -122,7 +122,7 @@ const AudioMessageSent: FC<Props> = ({ audioURL, createdOn }) => {
         borderBottomLeftRadius={'20'}
         borderTopRightRadius={'20'}
         style={{
-          transform: [{ rotateY: '0deg' }, { rotateX: '50deg' }]
+          transform: [{ rotateY: '0deg' }, { rotateX: '50deg' }],
         }}
       />
 

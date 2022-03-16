@@ -6,7 +6,7 @@ import {
   Image,
   StatusBar,
   Text,
-  View
+  View,
 } from 'native-base'
 import { FC } from 'react'
 import { Entypo } from '@expo/vector-icons'
@@ -21,51 +21,51 @@ const CallScreen: FC = () => {
       avatarUrl: 'https://i.pravatar.cc/150?img=51',
       callStatus: 'Missed',
       timestamp: '01:20 AM',
-      callType: 'video'
+      callType: 'video',
     },
     {
       personName: 'Sohan',
       avatarUrl: 'https://i.pravatar.cc/150?img=50',
       callStatus: 'Outgoing',
       timestamp: '04:16 AM',
-      callType: 'audio'
+      callType: 'audio',
     },
     {
       personName: 'Rohan',
       avatarUrl: 'https://i.pravatar.cc/150?img=52',
       callStatus: 'Incoming',
       timestamp: '09:04 AM',
-      callType: 'video'
+      callType: 'video',
     },
     {
       personName: 'Aayush',
       avatarUrl: 'https://i.pravatar.cc/150?img=53',
       callStatus: 'Missed',
       timestamp: '10:12 AM',
-      callType: 'audio'
+      callType: 'audio',
     },
     {
       personName: 'Rohan',
       avatarUrl: 'https://i.pravatar.cc/150?img=54',
       callStatus: 'Outgoing',
       timestamp: '12:00 AM',
-      callType: 'video'
-    }
+      callType: 'video',
+    },
   ]
 
   return (
     <View flex={1} bgColor={'#E5E5E5'}>
-      <StatusBar barStyle="dark-content" backgroundColor="#E5E5E5" />
+      <StatusBar barStyle='dark-content' backgroundColor='#E5E5E5' />
 
-      <Center flex={1} justifyContent="flex-start">
+      <Center flex={1} justifyContent='flex-start'>
         <Box
-          width="100%"
+          width='100%'
           alignItems={'center'}
-          bgColor="#E5E5E5"
+          bgColor='#E5E5E5'
           flexDirection={'row'}
           color={'#000000'}
           paddingY={'3'}
-          mt="2"
+          mt='2'
         >
           <Text fontWeight={'700'} fontSize={'22'} lineHeight={'24'} ml={5}>
             Calls
@@ -73,9 +73,9 @@ const CallScreen: FC = () => {
 
           <Box
             position={'absolute'}
-            right="4"
+            right='4'
             textAlign={'center'}
-            flexDirection="row"
+            flexDirection='row'
           >
             <Button
               //   onPress={hanleMakeVideoCall}
@@ -83,14 +83,14 @@ const CallScreen: FC = () => {
               padding={'0'}
               borderRadius={'2xl'}
             >
-              <Entypo name="magnifying-glass" size={30} color="#284180" />
+              <Entypo name='magnifying-glass' size={30} color='#284180' />
             </Button>
           </Box>
         </Box>
 
         {/* Call Logs */}
 
-        <Box width="90%" height={'90%'} mt={3} py={'2'}>
+        <Box width='90%' height={'90%'} mt={3} py={'2'}>
           <FlatList
             data={callLogData}
             renderItem={({ item }) => (
@@ -132,11 +132,11 @@ const CallScreen: FC = () => {
                       mt={'1'}
                     >
                       {item.callType === 'video' && (
-                        <FontAwesome5 name="video" size={11} color="black" />
+                        <FontAwesome5 name='video' size={11} color='black' />
                       )}
 
                       {item.callType === 'audio' && (
-                        <Ionicons name="call" size={11} color="black" />
+                        <Ionicons name='call' size={11} color='black' />
                       )}
                       {'  '}
                       {item.callStatus}
@@ -149,7 +149,7 @@ const CallScreen: FC = () => {
                     lineHeight={18}
                     position={'absolute'}
                     right={'3'}
-                    top="4"
+                    top='4'
                   >
                     {item.timestamp}
                   </Text>

@@ -9,7 +9,7 @@ import {
   Input,
   Spinner,
   Text,
-  View
+  View,
 } from 'native-base'
 import { FC, useEffect, useRef, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons'
@@ -40,9 +40,9 @@ const AddOptionSlider: FC<Props> = ({
   toggleShowAddOptions,
   registeredUsersFromContactListLoading,
   registeredUsersFromContactList,
-  handleRefreshAllContacts
+  handleRefreshAllContacts,
 }) => {
-  const { id } = useAppSelector(state => state.user.value)
+  const { id } = useAppSelector((state) => state.user.value)
 
   const addThisPersonInChatList = async (userId: string) => {
     try {
@@ -59,7 +59,7 @@ const AddOptionSlider: FC<Props> = ({
 
         await addDoc(collection(firestoreDB, 'chats'), {
           participantIDs: [id, userId],
-          updatedOn: Date.now()
+          updatedOn: Date.now(),
         })
 
         toggleShowAddOptions()
@@ -69,7 +69,7 @@ const AddOptionSlider: FC<Props> = ({
         // Chats are available
         let isThisContactAlreadyInTheChat = false
 
-        usersSnap.forEach(userDoc => {
+        usersSnap.forEach((userDoc) => {
           let participantIDs: string[] = userDoc.get('participantIDs')
 
           if (participantIDs.includes(userId)) {
@@ -81,7 +81,7 @@ const AddOptionSlider: FC<Props> = ({
           // Not in current user chat so add him
           await addDoc(collection(firestoreDB, 'chats'), {
             participantIDs: [id, userId],
-            updatedOn: Date.now()
+            updatedOn: Date.now(),
           })
 
           console.log('Not in the chats!')
@@ -131,7 +131,7 @@ const AddOptionSlider: FC<Props> = ({
             bgColor={'transparent'}
             padding={'0'}
           >
-            <AntDesign name="close" size={30} color="black" />
+            <AntDesign name='close' size={30} color='black' />
           </Button>
         </Box>
 
@@ -144,13 +144,13 @@ const AddOptionSlider: FC<Props> = ({
           color={'#000000'}
           backgroundColor={'#EFEEEE'}
           borderRadius={6}
-          mt="8"
-          type="text"
-          placeholder=" 🔍    Search"
+          mt='8'
+          type='text'
+          placeholder=' 🔍    Search'
           fontSize={13}
           lineHeight={18}
           fontWeight={400}
-          paddingLeft="3"
+          paddingLeft='3'
         />
 
         <Button
@@ -171,7 +171,7 @@ const AddOptionSlider: FC<Props> = ({
             lineHeight={'23.5'}
             ml={'2'}
           >
-            <Ionicons name="ios-people" size={16} color="#FFFFFF" />
+            <Ionicons name='ios-people' size={16} color='#FFFFFF' />
             {'   '}
             New Group
           </Text>
@@ -195,7 +195,7 @@ const AddOptionSlider: FC<Props> = ({
             lineHeight={'23.5'}
             ml={'1'}
           >
-            <FontAwesome name="user-plus" size={16} color="#FFFFFF" />
+            <FontAwesome name='user-plus' size={16} color='#FFFFFF' />
             {'   '}
             New Contact
           </Text>
@@ -221,26 +221,26 @@ const AddOptionSlider: FC<Props> = ({
           </Text>
 
           {registeredUsersFromContactListLoading ? (
-            <Spinner accessibilityLabel="Loading contacts" color={'black'} />
+            <Spinner accessibilityLabel='Loading contacts' color={'black'} />
           ) : (
             <Button
               padding={'0'}
               margin={'0'}
-              bgColor="transparent"
+              bgColor='transparent'
               // borderWidth={1}
               mr={'2'}
               onPress={handleRefreshAllContacts}
             >
-              <FontAwesome name="refresh" size={24} color="#22C3A6" />
+              <FontAwesome name='refresh' size={24} color='#22C3A6' />
             </Button>
           )}
         </Box>
 
-        <Box width="100%" borderWidth={0} height={'51%'} mt={3}>
+        <Box width='100%' borderWidth={0} height={'51%'} mt={3}>
           {registeredUsersFromContactListLoading ? (
-            <HStack mt={'20'} space={2} justifyContent="center">
-              <Spinner accessibilityLabel="Loading contacts" color={'black'} />
-              <Heading color="black" fontSize="lg" fontWeight={500}>
+            <HStack mt={'20'} space={2} justifyContent='center'>
+              <Spinner accessibilityLabel='Loading contacts' color={'black'} />
+              <Heading color='black' fontSize='lg' fontWeight={500}>
                 Loading
               </Heading>
             </HStack>

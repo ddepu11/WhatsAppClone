@@ -6,7 +6,8 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "dependencies": {
     "@config-plugins/react-native-webrtc": "2.0.1",
@@ -25,6 +26,7 @@
     "expo-status-bar": "~1.2.0",
     "firebase": "9.6.6",
     "native-base": "^3.3.7",
+    "prettier": "^2.6.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",

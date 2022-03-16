@@ -32,15 +32,15 @@ const ShowMessageScreenFooter: FC<Props> = ({ chatId }) => {
     playRecordedAudio,
     handleStopPlayingAudio,
     handleCancelAttachAudio,
-    handleSendAudio
+    handleSendAudio,
   } = useShowMessageScreenFooterLogic({
-    chatId
+    chatId,
   })
 
   return (
     <View
       alignItems={'center'}
-      position="absolute"
+      position='absolute'
       bottom={0}
       width={'100%'}
       bgColor={'#FFFFFF'}
@@ -120,7 +120,7 @@ const ShowMessageScreenFooter: FC<Props> = ({ chatId }) => {
       >
         <Button
           bgColor={'transparent'}
-          padding="0"
+          padding='0'
           onPress={() => setIsEmojiKeyboardOpen(true)}
         >
           <Text fontSize={22}>🙂</Text>
@@ -130,7 +130,7 @@ const ShowMessageScreenFooter: FC<Props> = ({ chatId }) => {
           fontWeight={400}
           fontSize={14}
           lineHeight={18}
-          placeholder="Type a message"
+          placeholder='Type a message'
           type={'text'}
           value={message}
           onChangeText={handleTypeMessage}
@@ -146,32 +146,32 @@ const ShowMessageScreenFooter: FC<Props> = ({ chatId }) => {
           <Button
             bgColor={'#22C3A6'}
             padding={'2'}
-            mr="4"
+            mr='4'
             borderRadius={'12'}
             position={'absolute'}
-            right="1.5"
+            right='1.5'
             onPress={hanleSendMessage}
           >
-            <AntDesign name="arrowright" size={24} color="#FFFFFF" />
+            <AntDesign name='arrowright' size={24} color='#FFFFFF' />
           </Button>
         ) : (
           <Box
             position={'absolute'}
-            right="1.5"
+            right='1.5'
             flexDirection={'row'}
             alignItems={'center'}
           >
             <Button
               bgColor={'transparent'}
               padding={'2'}
-              mr="1"
+              mr='1'
               borderRadius={'2xl'}
               onPress={hanleAttachDocs}
             >
               <MaterialCommunityIcons
-                name="paperclip"
+                name='paperclip'
                 size={24}
-                color="#284180"
+                color='#284180'
               />
             </Button>
 
@@ -181,7 +181,7 @@ const ShowMessageScreenFooter: FC<Props> = ({ chatId }) => {
               padding={'2'}
               borderRadius={'2xl'}
             >
-              <FontAwesome name="camera" size={24} color="#284180" />
+              <FontAwesome name='camera' size={24} color='#284180' />
             </Button>
 
             {areYouRecording ? (
@@ -191,7 +191,7 @@ const ShowMessageScreenFooter: FC<Props> = ({ chatId }) => {
                 padding={'2'}
                 borderRadius={'2xl'}
               >
-                <FontAwesome5 name="stop-circle" size={24} color="#cd2121" />
+                <FontAwesome5 name='stop-circle' size={24} color='#cd2121' />
               </Button>
             ) : (
               <Button
@@ -200,7 +200,7 @@ const ShowMessageScreenFooter: FC<Props> = ({ chatId }) => {
                 padding={'2'}
                 borderRadius={'2xl'}
               >
-                <Feather name="mic" size={24} color="#284180" />
+                <Feather name='mic' size={24} color='#284180' />
               </Button>
             )}
           </Box>

@@ -6,7 +6,7 @@ import {
   Image,
   StatusBar,
   Text,
-  View
+  View,
 } from 'native-base'
 import { FC } from 'react'
 import { TouchableOpacity } from 'react-native'
@@ -17,42 +17,42 @@ const StatusScreen: FC = () => {
     {
       personName: 'Sandra',
       avatarUrl: 'https://i.pravatar.cc/150?img=47',
-      createdOn: '20 mins ago'
+      createdOn: '20 mins ago',
     },
     {
       personName: 'Muskesh',
       avatarUrl: 'https://i.pravatar.cc/150?img=54',
-      createdOn: '10 mins ago'
+      createdOn: '10 mins ago',
     },
     {
       personName: 'Mohan',
       avatarUrl: 'https://i.pravatar.cc/150?img=53',
-      createdOn: '6 mins ago'
+      createdOn: '6 mins ago',
     },
     {
       personName: 'Sohan',
       avatarUrl: 'https://i.pravatar.cc/150?img=52',
-      createdOn: '15 mins ago'
+      createdOn: '15 mins ago',
     },
     {
       personName: 'Aayush',
       avatarUrl: 'https://i.pravatar.cc/150?img=13',
-      createdOn: '2 mins ago'
-    }
+      createdOn: '2 mins ago',
+    },
   ]
 
   return (
     <View flex={1} bgColor={'#E5E5E5'}>
-      <StatusBar barStyle="dark-content" backgroundColor="#E5E5E5" />
+      <StatusBar barStyle='dark-content' backgroundColor='#E5E5E5' />
 
-      <Center flex={1} justifyContent="flex-start">
+      <Center flex={1} justifyContent='flex-start'>
         <StatusScreenHeader />
 
         <Text
           fontSize={'14'}
           fontWeight={'400'}
           lineHeight={'14'}
-          alignSelf="flex-start"
+          alignSelf='flex-start'
           ml={'5'}
           mt={'5'}
         >
@@ -60,7 +60,7 @@ const StatusScreen: FC = () => {
         </Text>
 
         {/* People's status */}
-        <Box width="90%" height={'73.5%'} mt={3} py={'2'}>
+        <Box width='90%' height={'73.5%'} mt={3} py={'2'}>
           <FlatList
             data={statusData}
             renderItem={({ item }) => (

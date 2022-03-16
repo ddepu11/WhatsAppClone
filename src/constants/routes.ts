@@ -8,7 +8,7 @@ enum Routes {
   ChatsScreen = 'ChatsScreen',
   StatusScreen = 'StatusScreen',
   BottomNavigationBar = 'BottomNavigationBar',
-  DpAndUserName = 'DpAndUserName'
+  DpAndUserName = 'DpAndUserName',
 }
 
 export default Routes
