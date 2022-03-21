@@ -1,5 +1,5 @@
 import { Text, View } from 'native-base'
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { whenWasTheDocUpdatedOrCreated } from '../helper'
 
 interface Props {
@@ -21,8 +21,9 @@ const TextMessageSent: FC<Props> = ({ message, createdOn }) => {
       paddingX={3}
       paddingY={3}
       alignSelf={'flex-end'}
-      mt={10}
+      mt={5}
       mr={5}
+      mb={5}
     >
       <Text
         color={'#FFFFFF'}

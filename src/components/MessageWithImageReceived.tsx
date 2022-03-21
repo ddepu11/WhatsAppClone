@@ -1,4 +1,4 @@
-import { Box, Image, Text, useTypeahead, View } from 'native-base'
+import { Box, Image, Text, View } from 'native-base'
 import { FC } from 'react'
 import { whenWasTheDocUpdatedOrCreated } from '../helper'
 
@@ -16,11 +16,12 @@ const MessageWithImageReceived: FC<Props> = ({ picURL, createdOn }) => {
       bgColor={'#FFFFFF'}
       borderRadius={'12'}
       borderBottomLeftRadius={'0'}
-      paddingX={4}
-      paddingY={3}
+      paddingX={1}
+      paddingY={1}
       alignSelf={'flex-start'}
-      mt={10}
+      mt={5}
       ml={5}
+      mb={5}
     >
       <Box flexDirection={'row'}>
         <Image
@@ -28,7 +29,7 @@ const MessageWithImageReceived: FC<Props> = ({ picURL, createdOn }) => {
           alt='random image'
           width={200}
           height={250}
-          mr={2}
+          borderRadius={'12'}
         />
 
         {/* <Box>

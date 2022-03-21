@@ -63,8 +63,9 @@ const AudioMessageSent: FC<Props> = ({ audioURL, createdOn }) => {
       paddingX={3}
       paddingY={3}
       alignSelf={'flex-end'}
-      mt={10}
+      mt={5}
       mr={5}
+      mb={5}
     >
       <Box
         width={'100%'}

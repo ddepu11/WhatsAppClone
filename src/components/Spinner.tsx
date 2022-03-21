@@ -9,9 +9,9 @@ const SpinnerComponent: FC<{ message: string }> = ({ message }) => {
       borderRadius={'12'}
       borderBottomRightRadius={'0'}
       paddingX={3}
-      paddingY={3}
+      paddingY={2}
       alignSelf={'flex-end'}
-      mt={10}
+      my={3}
       mr={5}
       flexDirection={'row'}
       justifyContent={'center'}
