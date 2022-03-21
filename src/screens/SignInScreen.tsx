@@ -30,8 +30,6 @@ const Icon = require('../../assets/Icon2.png')
 type Props = NativeStackScreenProps<NavigationParams, Routes.SignInScreen>
 
 const SignInScreen: FC<Props> = ({ navigation }) => {
-  console.log('Rendering Sign in screen')
-
   const dispatch = useAppDispatch()
 
   const recaptchaVerifierRef = useRef<FirebaseRecaptchaVerifierModal>(null)
@@ -59,15 +57,15 @@ const SignInScreen: FC<Props> = ({ navigation }) => {
         countryCode,
       })
 
-      setMobileNumber('')
-      setCountryCode('+91')
+      // setMobileNumber('')
+      // setCountryCode('+91')
     } catch (err: any) {
       dispatch(userLoadingEnds())
 
       Alert.alert(err.message)
 
-      setMobileNumber('')
-      setCountryCode('+91')
+      // setMobileNumber('')
+      // setCountryCode('+91')
     }
   }
 
