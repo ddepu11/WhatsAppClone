@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect } from 'react'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import NavigationParams from '../types/navigationParams'
@@ -7,7 +7,6 @@ import BottomNavigationBar from './BottomNavigationBar'
 import ShowMessageScreen from '../screens/ShowMessageScreen/ShowMessageScreen'
 import DpAndUserName from '../screens/DpAndUserName'
 import { useAppSelector } from '../../redux/store'
-import AddOptionSlider from '../screens/BottomNavigationScreens/ChatScreen/AddOptionSlider'
 import { saveValueInLocalStorage } from '../helper'
 import { AppState, AppStateStatus } from 'react-native'
 import { doc, updateDoc } from 'firebase/firestore'

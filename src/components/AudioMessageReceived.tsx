@@ -1,7 +1,7 @@
 import { Box, Button, Text, View } from 'native-base'
 import { FC, useState } from 'react'
 import { whenWasTheDocUpdatedOrCreated } from '../helper'
-import { Audio, AVPlaybackStatus } from 'expo-av'
+import { Audio } from 'expo-av'
 
 interface Props {
   audioURL: string | undefined
@@ -66,8 +66,9 @@ const AudioMessageReceived: FC<Props> = ({ audioURL, createdOn }) => {
       paddingX={3}
       paddingY={3}
       alignSelf={'flex-start'}
-      mt={10}
+      mt={5}
       ml={5}
+      mb={5}
     >
       <Box width={'100%'}>
         <Text

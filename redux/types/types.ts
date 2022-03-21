@@ -1,5 +1,3 @@
-import * as ImagePicker from 'expo-image-picker'
-
 export interface userState {
   value: {
     isLoading: boolean

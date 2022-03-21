@@ -26,7 +26,7 @@ import {
   ref,
   uploadBytes,
 } from 'firebase/storage'
-import { FetchUserInfoSuccess, userState } from '../../types/types'
+import { FetchUserInfoSuccess } from '../../types/types'
 
 function* fetchUserInfo(action: any) {
   const { mobileNumber } = action.payload

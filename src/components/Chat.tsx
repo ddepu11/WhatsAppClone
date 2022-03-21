@@ -1,5 +1,5 @@
-import { Box, Button, Image, Text } from 'native-base'
-import { FC, useEffect } from 'react'
+import { Box, Image, Text } from 'native-base'
+import { FC } from 'react'
 import { TouchableOpacity } from 'react-native'
 import Routes from '../constants/routes'
 import { whenWasTheDocUpdatedOrCreated } from '../helper'

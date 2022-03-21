@@ -1,8 +1,6 @@
 import {
   collection,
   doc,
-  DocumentData,
-  DocumentSnapshot,
   getDoc,
   getDocs,
   onSnapshot,
@@ -25,7 +23,7 @@ const ChatsScreenLogic = () => {
     setRegisteredUsersFromContactListLoading,
   ] = useState(false)
 
-  const [fetchingChatsLoading, setFetchingChatsLoading] = useState(false)
+  const [fetchingChatsLoading, setFetchingChatsLoading] = useState(true)
 
   const [keyword, setKeyword] = useState('')
   const [showAddOptions, setShowAddOptions] = useState(false)
@@ -195,9 +193,7 @@ const ChatsScreenLogic = () => {
       where('participantIDs', 'array-contains', id)
     )
 
-    let unsubscribe: firestore.Unsubscribe
-
-    unsubscribe = onSnapshot(q, (snap) => {
+    let unsubscribe = onSnapshot(q, (snap) => {
       const allChats: ChatType[] = []
 
       let index = 0

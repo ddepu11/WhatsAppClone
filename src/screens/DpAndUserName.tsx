@@ -27,7 +27,6 @@ import {
   saveUserInfoRequest,
   updateUserInfoRequest,
 } from '../../redux/states/userState'
-import { saveValueInLocalStorage } from '../helper'
 
 type Props = NativeStackScreenProps<NavigationParams, Routes.OTPScreen>
 

@@ -11,7 +11,7 @@ import {
   Text,
   View,
 } from 'native-base'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC } from 'react'
 import { AntDesign } from '@expo/vector-icons'
 import { Ionicons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'
@@ -28,12 +28,6 @@ interface Props {
   registeredUsersFromContactListLoading: boolean
   registeredUsersFromContactList: RegistredUserFromContacts[]
   handleRefreshAllContacts: () => void
-}
-
-interface Contact {
-  firstName: string | undefined
-  lastName: string | undefined
-  phoneNumber: string | undefined
 }
 
 const AddOptionSlider: FC<Props> = ({

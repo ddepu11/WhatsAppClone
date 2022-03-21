@@ -22,7 +22,6 @@ import { app, auth } from '../../firebaseconfig'
 import {
   logInFailed,
   logInSuccess,
-  userLoadingEnds,
   userLoadingStarts,
 } from '../../redux/states/userState'
 import { useAppDispatch, useAppSelector } from '../../redux/store'

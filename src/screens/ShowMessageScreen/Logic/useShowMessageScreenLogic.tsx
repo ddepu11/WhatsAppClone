@@ -1,16 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
-import firestore, {
-  collection,
-  doc,
-  DocumentData,
-  onSnapshot,
-  orderBy,
-  query,
-} from 'firebase/firestore'
+import { useEffect, useState } from 'react'
+import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { firestoreDB } from '../../../../firebaseconfig'
 import { useAppDispatch, useAppSelector } from '../../../../redux/store'
 import { messageSendSuccess } from '../../../../redux/states/messagesState'
-import { userState } from '../../../../redux/types/types'
 
 interface MessageInterface {
   createdOn: number
@@ -23,6 +15,7 @@ interface MessageInterface {
 const useShowMessageScreenLogic = (chatId: string, otherPersonId: string) => {
   const [messages, setMessages] = useState<MessageInterface[]>([])
   const [fetchMessageLoading, setFetchMessageLoading] = useState(true)
+
   const [otherPersonOnfo, setOtherPersonOnfo] = useState<
     { isOnline: boolean } | undefined
   >(undefined)
@@ -33,14 +26,14 @@ const useShowMessageScreenLogic = (chatId: string, otherPersonId: string) => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    setFetchMessageLoading(true)
+
     const q = query(
       collection(firestoreDB, 'chats', chatId, 'messages'),
       orderBy('createdOn', 'asc')
     )
 
-    let unsubscribe: firestore.Unsubscribe
-
-    unsubscribe = onSnapshot(q, (messageSnap) => {
+    let unsubscribe = onSnapshot(q, (messageSnap) => {
       const newMessages: any[] = []
 
       let index = 0
