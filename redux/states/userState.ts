@@ -9,7 +9,7 @@ import {
 
 const initialState: userState = {
   value: {
-    isLoading: false,
+    isLoading: true,
     loggedIn: false,
     mobileNumber: '',
     displayPic: { fileName: '', url: '' },
@@ -38,7 +38,6 @@ const userSlice = createSlice({
     logInSuccess: (state, action: PayloadAction<LogInRequestSuccess>) => {
       state.value = {
         ...state.value,
-        isLoading: false,
         loggedIn: true,
         mobileNumber: action.payload.mobileNumber,
       }
@@ -67,7 +66,7 @@ const userSlice = createSlice({
       state,
       action: PayloadAction<FetchUserInfoRequest>
     ) => {
-      state.value = { ...state.value, isLoading: true }
+      state.value = { ...state.value }
     },
 
     fetchUserInfoSuccess: (
@@ -101,7 +100,7 @@ const userSlice = createSlice({
     },
 
     logOutSuccess: (state) => {
-      state.value = { ...initialState.value }
+      state.value = { ...initialState.value, isLoading: false }
     },
 
     logOutFailure: (state) => {
