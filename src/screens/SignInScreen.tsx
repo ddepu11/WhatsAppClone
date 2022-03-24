@@ -30,7 +30,7 @@ const Icon = require('../../assets/Icon2.png')
 type Props = NativeStackScreenProps<NavigationParams, Routes.SignInScreen>
 
 const SignInScreen: FC<Props> = ({ navigation }) => {
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
 
   const recaptchaVerifierRef = useRef<FirebaseRecaptchaVerifierModal>(null)
 
@@ -38,8 +38,10 @@ const SignInScreen: FC<Props> = ({ navigation }) => {
 
   const [mobileNumber, setMobileNumber] = useState('')
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const handleGenerateOTP = async () => {
-    dispatch(userLoadingStarts())
+    setIsLoading(true)
 
     try {
       const phoneProvider = new PhoneAuthProvider(auth)
@@ -49,23 +51,15 @@ const SignInScreen: FC<Props> = ({ navigation }) => {
         recaptchaVerifierRef.current as ApplicationVerifier
       )
 
-      dispatch(userLoadingEnds())
-
       navigation.navigate(Routes.OTPScreen, {
         verificationId,
         mobileNumber,
         countryCode,
       })
-
-      // setMobileNumber('')
-      // setCountryCode('+91')
     } catch (err: any) {
-      dispatch(userLoadingEnds())
+      setIsLoading(false)
 
       Alert.alert(err.message)
-
-      // setMobileNumber('')
-      // setCountryCode('+91')
     }
   }
 
@@ -81,7 +75,7 @@ const SignInScreen: FC<Props> = ({ navigation }) => {
     auth.languageCode = 'en'
   }, [])
 
-  const { isLoading } = useAppSelector((state) => state.user.value)
+  // const { isLoading } = useAppSelector((state) => state.user.value)
 
   return (
     <View flex={1}>

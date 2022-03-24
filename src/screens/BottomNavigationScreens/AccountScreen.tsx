@@ -1,5 +1,5 @@
 import { Button, Center, Spinner, Text, View } from 'native-base'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Alert } from 'react-native'
 import {
   logOutFailure,
@@ -12,10 +12,12 @@ import { deleteValueFromLocalStorage } from '../../helper'
 const AccountScreen: FC = () => {
   const dispatch = useAppDispatch()
 
-  const { isLoading, loggedIn } = useAppSelector((state) => state.user.value)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const { loggedIn } = useAppSelector((state) => state.user.value)
 
   const handleLogOut = async () => {
-    dispatch(logOutRequest())
+    setIsLoading(true)
 
     try {
       await deleteValueFromLocalStorage('userInfo')
@@ -24,8 +26,7 @@ const AccountScreen: FC = () => {
 
       Alert.alert('Successfully logged out!')
     } catch (err: any) {
-      dispatch(logOutFailure())
-
+      setIsLoading(false)
       console.log(err.code)
       console.log(err.message)
     }

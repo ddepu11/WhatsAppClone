@@ -19,12 +19,8 @@ import {
 import { FC, useRef, useState } from 'react'
 import { Alert, StyleSheet, TextInput } from 'react-native'
 import { app, auth } from '../../firebaseconfig'
-import {
-  logInFailed,
-  logInSuccess,
-  userLoadingStarts,
-} from '../../redux/states/userState'
-import { useAppDispatch, useAppSelector } from '../../redux/store'
+import { logInSuccess } from '../../redux/states/userState'
+import { useAppDispatch } from '../../redux/store'
 import Routes from '../constants/routes'
 import NavigationParams from '../types/navigationParams'
 
@@ -54,12 +50,13 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
     digit6: '',
   })
 
+  const [isLoading, setIsLoading] = useState(false)
   const [resendLoading, setResendLoading] = useState(false)
 
   let { verificationId, mobileNumber, countryCode } = route.params
 
   const handleSubmitOTP = async () => {
-    dispatch(userLoadingStarts())
+    setIsLoading(true)
 
     try {
       const credential = PhoneAuthProvider.credential(
@@ -72,9 +69,9 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
       Alert.alert('Phone authentication successful 👍')
 
       dispatch(logInSuccess({ mobileNumber: `${mobileNumber}` }))
+      setIsLoading(false)
     } catch (err: any) {
-      dispatch(logInFailed())
-
+      setIsLoading(false)
       navigation.navigate(Routes.SignInScreen)
     }
   }
@@ -140,8 +137,6 @@ const OTPScreen: FC<Props> = ({ navigation, route }) => {
   const handleDigit6 = (digit6: string): void => {
     setOTP((prevOTP) => ({ ...prevOTP, digit6 }))
   }
-
-  const { isLoading } = useAppSelector((state) => state.user.value)
 
   return (
     <View flex={1} color={'#FFFFFF'}>
