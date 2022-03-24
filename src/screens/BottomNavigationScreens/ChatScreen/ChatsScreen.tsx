@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Center,
-  FlatList,
   Heading,
   HStack,
   Image,
@@ -20,20 +19,23 @@ import Routes from '../../../constants/routes'
 import NavigationParams from '../../../types/navigationParams'
 import AddOptionSlider from './AddOptionSlider'
 import useChatsScreenLogic from './logic/useChatsScreenLogic'
+import { RecyclerListView } from 'recyclerlistview'
 
 type Props = NativeStackScreenProps<NavigationParams, Routes.SignInScreen>
 
 const ChatScreen: FC<Props> = ({ navigation }) => {
+  console.log('Rendering chat screen')
+
   const {
     handleSearchChat,
     keyword,
-    chats,
     toggleShowAddOptions,
     showAddOptions,
-    registeredUsersFromContactListLoading,
     registeredUsersFromContactList,
-    fetchingChatsLoading,
     handleRefreshAllContacts,
+    chats,
+    rowRenderer,
+    layoutProvider,
   } = useChatsScreenLogic()
 
   return (
@@ -93,23 +95,22 @@ const ChatScreen: FC<Props> = ({ navigation }) => {
         />
 
         <Box mt={5} width='91%'>
-          {fetchingChatsLoading ? (
+          {chats.loading ? (
             <HStack mt={'20'} space={2} justifyContent='center'>
               <Spinner accessibilityLabel='Loading chats' color={'black'} />
+
               <Heading color='black' fontSize='lg' fontWeight={500}>
                 Loading Chats
               </Heading>
             </HStack>
           ) : (
             <>
-              {chats && chats.length > 0 ? (
-                <FlatList
-                  keyExtractor={({ chatId }) => chatId as string}
-                  data={chats.map((item) => ({
-                    ...item,
-                    navigation,
-                  }))}
-                  renderItem={Chat}
+              {chats.data && chats.data.getSize() > 0 ? (
+                <RecyclerListView
+                  layoutProvider={layoutProvider.current}
+                  dataProvider={chats.data}
+                  rowRenderer={rowRenderer}
+                  style={{ minHeight: 1, minWidth: 1 }}
                 />
               ) : (
                 <Box mt={16} alignItems={'center'}>
@@ -150,10 +151,10 @@ const ChatScreen: FC<Props> = ({ navigation }) => {
         <AddOptionSlider
           handleRefreshAllContacts={handleRefreshAllContacts}
           registeredUsersFromContactListLoading={
-            registeredUsersFromContactListLoading
+            registeredUsersFromContactList.loading
           }
           toggleShowAddOptions={toggleShowAddOptions}
-          registeredUsersFromContactList={registeredUsersFromContactList}
+          registeredUsersFromContactList={registeredUsersFromContactList.data}
         />
       )}
     </View>
