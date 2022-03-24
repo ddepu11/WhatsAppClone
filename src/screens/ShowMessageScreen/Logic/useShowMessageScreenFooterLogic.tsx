@@ -1,5 +1,5 @@
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import EmojiPicker from 'rn-emoji-keyboard'
 import * as ImagePicker from 'expo-image-picker'
 import { Audio } from 'expo-av'
