@@ -24,9 +24,19 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import NavigationParams from '../types/navigationParams'
 import {
   fetchUserInfoRequest,
+  fetchUserInfoSuccess,
   saveUserInfoRequest,
   updateUserInfoRequest,
 } from '../../redux/states/userState'
+import { firestoreDB } from '../../firebaseconfig'
+import {
+  collection,
+  getDocs,
+  query,
+  QuerySnapshot,
+  where,
+} from 'firebase/firestore'
+import { FetchUserInfoSuccess } from '../../redux/types/types'
 
 type Props = NativeStackScreenProps<NavigationParams, Routes.OTPScreen>
 
@@ -35,7 +45,6 @@ const DpAndUserName: FC<Props> = ({ navigation }) => {
 
   const {
     mobileNumber,
-    isLoading,
     loggedIn,
     firstName,
     lastName,
@@ -45,6 +54,7 @@ const DpAndUserName: FC<Props> = ({ navigation }) => {
   } = useAppSelector((state) => state.user.value)
 
   const [displayPic, setDisplayPic] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const [userInfo, setUserInfo] = useState({
     userName: '',
@@ -54,8 +64,46 @@ const DpAndUserName: FC<Props> = ({ navigation }) => {
 
   // Fetch user info
   useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const usersRef = collection(firestoreDB, 'users')
+
+        const q = query(usersRef, where('mobileNumber', '==', mobileNumber))
+
+        const querySnapshot: QuerySnapshot = await getDocs(q)
+
+        if (querySnapshot.empty) {
+          // New User
+          console.log('New User')
+          dispatch(
+            fetchUserInfoSuccess({
+              displayPic: { url: '', fileName: '' },
+              firstName: '',
+              lastName: '',
+              userName: '',
+              id: '',
+            })
+          )
+        } else {
+          // Existing User
+          console.log('Existing User')
+
+          dispatch(
+            fetchUserInfoSuccess({
+              ...(querySnapshot.docs[0].data() as FetchUserInfoSuccess),
+              id: querySnapshot.docs[0].id,
+            })
+          )
+        }
+      } catch (err: any) {
+        console.log(err.code)
+        console.log(err.message)
+      }
+    }
+
     if (loggedIn && !id) {
-      dispatch(fetchUserInfoRequest({ mobileNumber }))
+      setIsLoading(true)
+      fetchUserInfo()
     }
   }, [loggedIn, id])
 
@@ -73,15 +121,21 @@ const DpAndUserName: FC<Props> = ({ navigation }) => {
   const [areYouUpdating, setAreYouUpdating] = useState(false)
 
   useEffect(() => {
+    let mounted = true
+
     if (
       firstName !== userInfo.firstName ||
       lastName !== userInfo.lastName ||
       userName !== userInfo.userName ||
       url !== displayPic
     ) {
-      setAreYouUpdating(true)
+      mounted && setAreYouUpdating(true)
     } else {
-      setAreYouUpdating(false)
+      mounted && setAreYouUpdating(false)
+    }
+
+    return () => {
+      mounted = false
     }
   }, [userInfo.firstName, userInfo.lastName, userInfo.userName])
 
