@@ -71,16 +71,18 @@ const useShowMessageScreenHeaderLogic = (otherPersonId: string) => {
 
       // Receive a connection
       localPeer.current.on('connection', (conn: any) => {
-        console.log(`${firstName} ${lastName} has received connection.`)
+        // console.log(`${firstName} ${lastName} has received connection.`)
 
         conn.on('error', console.log)
 
         conn.on('open', () => {
-          console.log(`${firstName} ${lastName} opened connection.`)
+          // console.log(`${firstName} ${lastName} opened connection.`)
 
           // console.log("conn", conn);
 
-          conn.on('data', (data: any) => console.log(`Received Data: `, data))
+          conn.on('data', (data: any) => {
+            // console.log(`Received Data: `, data)
+          })
 
           // console.log(`${firstName} ${lastName} sending data.`);
 
@@ -89,17 +91,17 @@ const useShowMessageScreenHeaderLogic = (otherPersonId: string) => {
       })
 
       localPeer.current.on('disconnected', () => {
-        console.log(`${firstName} ${lastName} connection is DISCONNECTED`)
+        // console.log(`${firstName} ${lastName} connection is DISCONNECTED`)
       })
 
       localPeer.current.on('close', () => {
-        console.log(`${firstName} ${lastName} connection is CLOSE`)
+        // console.log(`${firstName} ${lastName} connection is CLOSE`)
       })
 
       localPeer.current.on('error', function (err: any) {
-        console.log(
-          `An ERROR occured connection is CLOSE, Error type: ${err.type}`
-        )
+        // console.log(
+        //   `An ERROR occured connection is CLOSE, Error type: ${err.type}`
+        // )
       })
     }
 
