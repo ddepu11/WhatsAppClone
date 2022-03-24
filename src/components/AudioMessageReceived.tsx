@@ -1,5 +1,5 @@
 import { Box, Button, Text, View } from 'native-base'
-import { FC, useState } from 'react'
+import { FC, useMemo, useState, memo } from 'react'
 import { whenWasTheDocUpdatedOrCreated } from '../helper'
 import { Audio } from 'expo-av'
 
@@ -11,8 +11,10 @@ interface Props {
 const AudioMessageReceived: FC<Props> = ({ audioURL, createdOn }) => {
   let lastUpdatedWhen: string
 
-  lastUpdatedWhen = whenWasTheDocUpdatedOrCreated(createdOn)
-
+  lastUpdatedWhen = useMemo(
+    () => whenWasTheDocUpdatedOrCreated(createdOn),
+    [createdOn]
+  )
   const [sound, setSound] = useState<Audio.Sound>()
   const [isPlaying, setIsPlaying] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -50,7 +52,6 @@ const AudioMessageReceived: FC<Props> = ({ audioURL, createdOn }) => {
   }
 
   const handleStopPlayingAudio = () => {
-    console.log()
     if (sound) {
       setIsPlaying(false)
       sound.stopAsync()
@@ -141,4 +142,4 @@ const AudioMessageReceived: FC<Props> = ({ audioURL, createdOn }) => {
   )
 }
 
-export default AudioMessageReceived
+export default memo(AudioMessageReceived)

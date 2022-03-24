@@ -1,5 +1,5 @@
 import { Text, View } from 'native-base'
-import { FC } from 'react'
+import { FC, memo, useMemo } from 'react'
 import { whenWasTheDocUpdatedOrCreated } from '../helper'
 
 interface Props {
@@ -10,7 +10,10 @@ interface Props {
 const TextMessageReceived: FC<Props> = ({ message, createdOn }) => {
   let lastUpdatedWhen: string
 
-  lastUpdatedWhen = whenWasTheDocUpdatedOrCreated(createdOn)
+  lastUpdatedWhen = useMemo(
+    () => whenWasTheDocUpdatedOrCreated(createdOn),
+    [createdOn]
+  )
 
   return (
     <View
@@ -65,4 +68,4 @@ const TextMessageReceived: FC<Props> = ({ message, createdOn }) => {
   )
 }
 
-export default TextMessageReceived
+export default memo(TextMessageReceived)

@@ -1,5 +1,5 @@
 import { Box, Image, Text, View } from 'native-base'
-import { FC } from 'react'
+import { FC, useMemo, memo } from 'react'
 import { whenWasTheDocUpdatedOrCreated } from '../helper'
 
 interface Props {
@@ -10,7 +10,11 @@ interface Props {
 const MessageWithImageReceived: FC<Props> = ({ picURL, createdOn }) => {
   let lastUpdatedWhen: string
 
-  lastUpdatedWhen = whenWasTheDocUpdatedOrCreated(createdOn)
+  lastUpdatedWhen = useMemo(
+    () => whenWasTheDocUpdatedOrCreated(createdOn),
+    [createdOn]
+  )
+
   return (
     <View
       bgColor={'#FFFFFF'}
@@ -100,4 +104,4 @@ const MessageWithImageReceived: FC<Props> = ({ picURL, createdOn }) => {
   )
 }
 
-export default MessageWithImageReceived
+export default memo(MessageWithImageReceived)
