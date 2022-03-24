@@ -40,7 +40,7 @@ function* fetchUserInfo(action: any) {
 
     if (querySnapshot.empty) {
       // New User
-      console.log('New User')
+      // console.log('New User')
 
       yield put(
         fetchUserInfoSuccess({
@@ -53,7 +53,7 @@ function* fetchUserInfo(action: any) {
       )
     } else {
       // Existing User
-      console.log('Existing User')
+      // console.log('Existing User')
 
       yield put(
         fetchUserInfoSuccess({

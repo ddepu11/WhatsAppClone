@@ -46,7 +46,7 @@ const AppStack: FC = () => {
     const userDocFef = doc(firestoreDB, 'users', id)
 
     if (nextAppState === 'active') {
-      console.log('Online')
+      // console.log('Online')
 
       if (id && loggedIn) {
         await updateDoc(userDocFef, {
@@ -56,7 +56,7 @@ const AppStack: FC = () => {
     }
 
     if (nextAppState === 'background') {
-      console.log('Offline')
+      // console.log('Offline')
 
       if (id && loggedIn) {
         await updateDoc(userDocFef, {
