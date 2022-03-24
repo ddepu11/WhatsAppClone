@@ -7,36 +7,49 @@ import {
   query,
   where,
 } from 'firebase/firestore'
-import firestore from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
 import * as Contacts from 'expo-contacts'
+import { DataProvider, LayoutProvider } from 'recyclerlistview'
 import { firestoreDB } from '../../../../../firebaseconfig'
 import { useAppSelector } from '../../../../../redux/store'
 import { ChatType, RegistredUserFromContacts } from '../../../../types/types'
+import { Dimensions } from 'react-native'
+import Chat from '../../../../components/Chat'
 
 const ChatsScreenLogic = () => {
   const { id, mobileNumber } = useAppSelector((state) => state.user.value)
 
   // Loading States
-  const [
-    registeredUsersFromContactListLoading,
-    setRegisteredUsersFromContactListLoading,
-  ] = useState(false)
-
-  const [fetchingChatsLoading, setFetchingChatsLoading] = useState(true)
+  // const [
+  //   registeredUsersFromContactListLoading,
+  //   setRegisteredUsersFromContactListLoading,
+  // ] = useState(true)
 
   const [keyword, setKeyword] = useState('')
   const [showAddOptions, setShowAddOptions] = useState(false)
 
-  const [chats, setChats] = useState<ChatType[]>()
+  const [chats, setChats] = useState<{
+    data: DataProvider | undefined
+    loading: boolean
+  }>({
+    data: undefined,
+    loading: true,
+  })
+
   const contactList = useRef<any[]>([])
+  const layoutProvider = useRef<any>()
 
   const [registeredUsersFromContactList, setRegisteredUsersFromContactList] =
-    useState<RegistredUserFromContacts[]>([])
+    useState<{
+      data: RegistredUserFromContacts[] | undefined
+      loading: boolean
+    }>({ data: undefined, loading: true })
 
   // Fetching info of Registered Users From Contact List
   useEffect(() => {
     let setTimeOutIds: any = 0
+
+    const newRegisteredUsersFromContactList: RegistredUserFromContacts[] = []
 
     const fetchRegisteredUsers = async (
       mobileNumber: string | undefined,
@@ -53,22 +66,31 @@ const ChatsScreenLogic = () => {
         querySnapshot.forEach((doc) => {
           const { status, mobileNumber, displayPic } = doc.data()
 
-          setRegisteredUsersFromContactList((prevState) => [
-            ...prevState,
-            {
-              id: doc.id,
-              fullName,
-              displayPicUrl: displayPic.url,
-              mobileNumber,
-              status,
-            },
-          ])
+          newRegisteredUsersFromContactList.push({
+            id: doc.id,
+            fullName,
+            displayPicUrl: displayPic.url,
+            mobileNumber,
+            status,
+          })
+
+          // setRegisteredUsersFromContactList((prevState) => [
+          //   ...prevState,
+          //   {
+          //     id: doc.id,
+          //     fullName,
+          //     displayPicUrl: displayPic.url,
+          //     mobileNumber,
+          //     status,
+          //   },
+          // ])
         })
       }
     }
 
-    if (registeredUsersFromContactList.length === 0) {
-      setRegisteredUsersFromContactListLoading(true)
+    if (registeredUsersFromContactList.data === undefined) {
+      // setRegisteredUsersFromContactListLoading(true)
+
       ;(async () => {
         const { status } = await Contacts.requestPermissionsAsync()
 
@@ -161,17 +183,28 @@ const ChatsScreenLogic = () => {
 
                 // At the end of the contacts
                 if (index === contacts.length) {
-                  setRegisteredUsersFromContactListLoading(false)
+                  setRegisteredUsersFromContactList({
+                    data: newRegisteredUsersFromContactList,
+                    loading: false,
+                  })
+
+                  // setRegisteredUsersFromContactListLoading(false)
                 }
               }, index * 200)
             }
           } else {
             console.log('There are no contacts in your mobile!')
-            setRegisteredUsersFromContactListLoading(false)
+            setRegisteredUsersFromContactList({
+              data: undefined,
+              loading: false,
+            })
           }
         } else {
           console.log('Permission denied')
-          setRegisteredUsersFromContactListLoading(false)
+          setRegisteredUsersFromContactList({
+            data: undefined,
+            loading: false,
+          })
         }
       })()
     }
@@ -186,8 +219,6 @@ const ChatsScreenLogic = () => {
 
   // Fetching Chats
   useEffect(() => {
-    setFetchingChatsLoading(true)
-
     const q = query(
       collection(firestoreDB, 'chats'),
       where('participantIDs', 'array-contains', id)
@@ -199,7 +230,10 @@ const ChatsScreenLogic = () => {
       let index = 0
 
       if (snap.empty) {
-        setFetchingChatsLoading(false)
+        setChats({
+          data: undefined,
+          loading: false,
+        })
       }
 
       snap.forEach(async (chatDocument) => {
@@ -233,21 +267,53 @@ const ChatsScreenLogic = () => {
         }
 
         if (snap.size - 1 === index) {
-          setChats(allChats)
-          setFetchingChatsLoading(false)
+          let dataProvider = new DataProvider((r1, r2) => {
+            return r1.chatId !== r2.chatId
+          })
+
+          setChats({
+            data: dataProvider.cloneWithRows(allChats),
+            loading: false,
+          })
         }
 
         index = index + 1
       })
     })
 
+    let { width } = Dimensions.get('window')
+
+    layoutProvider.current = new LayoutProvider(
+      (index) => {
+        return 0
+      },
+      (type, dim) => {
+        switch (type) {
+          case 0:
+            dim.width = width
+            dim.height = 80
+            break
+
+          default:
+            dim.width = 0
+            dim.height = 0
+        }
+      }
+    )
+
     return () => {
       unsubscribe && unsubscribe()
     }
   }, [])
 
+  const rowRenderer = (type: any, data: any) => {
+    return <Chat {...data} />
+  }
+
   const handleRefreshAllContacts = () => {
-    setRegisteredUsersFromContactListLoading(true)
+    setRegisteredUsersFromContactList((prevState) => {
+      return { ...prevState, loading: true }
+    })
 
     const contacts = contactList.current
 
@@ -299,14 +365,19 @@ const ChatsScreenLogic = () => {
 
         // At the end of the contacts
         if (index === contacts.length) {
-          setRegisteredUsersFromContactList(newRegisteredContacts)
-          setRegisteredUsersFromContactListLoading(false)
+          setRegisteredUsersFromContactList({
+            data: newRegisteredContacts,
+            loading: false,
+          })
         }
       }, index * 200)
     }
 
     if (contacts.length === 0) {
-      setRegisteredUsersFromContactListLoading(false)
+      setRegisteredUsersFromContactList({
+        data: undefined,
+        loading: false,
+      })
     }
   }
 
@@ -325,12 +396,11 @@ const ChatsScreenLogic = () => {
     showAddOptions,
     setShowAddOptions,
     toggleShowAddOptions,
-    registeredUsersFromContactListLoading,
-    setRegisteredUsersFromContactListLoading,
     registeredUsersFromContactList,
     setRegisteredUsersFromContactList,
-    fetchingChatsLoading,
     handleRefreshAllContacts,
+    rowRenderer,
+    layoutProvider,
   }
 }
 
