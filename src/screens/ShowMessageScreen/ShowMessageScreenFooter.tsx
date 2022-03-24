@@ -1,5 +1,5 @@
 import { Box, Button, Input, Text, View } from 'native-base'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { AntDesign } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons'
@@ -14,6 +14,8 @@ interface Props {
 }
 
 const ShowMessageScreenFooter: FC<Props> = ({ chatId }) => {
+  // console.log('Rendering ShowMessageScreenFooter')
+
   const {
     message,
     setMessage,
@@ -219,4 +221,4 @@ const ShowMessageScreenFooter: FC<Props> = ({ chatId }) => {
   )
 }
 
-export default ShowMessageScreenFooter
+export default memo(ShowMessageScreenFooter)

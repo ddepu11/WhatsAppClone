@@ -1,5 +1,5 @@
 import { Box, Button, Image, Text } from 'native-base'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { AntDesign } from '@expo/vector-icons'
 import { Ionicons } from '@expo/vector-icons'
 import {
@@ -24,6 +24,8 @@ const ShowMessageScreenHeader: FC<Props> = ({
   otherPersonId,
   isOnline,
 }) => {
+  // console.log('Rendering ShowMessageScreenHeader')
+
   const {
     handleNavigateBack,
     hanleMakeVideoCall,
@@ -260,4 +262,4 @@ const ShowMessageScreenHeader: FC<Props> = ({
   )
 }
 
-export default ShowMessageScreenHeader
+export default memo(ShowMessageScreenHeader)
