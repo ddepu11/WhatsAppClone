@@ -26,7 +26,7 @@ import { RegistredUserFromContacts } from '../../../types/types'
 interface Props {
   toggleShowAddOptions: () => void
   registeredUsersFromContactListLoading: boolean
-  registeredUsersFromContactList: RegistredUserFromContacts[]
+  registeredUsersFromContactList: RegistredUserFromContacts[] | undefined
   handleRefreshAllContacts: () => void
 }
 
@@ -240,7 +240,8 @@ const AddOptionSlider: FC<Props> = ({
             </HStack>
           ) : (
             <>
-              {registeredUsersFromContactList.length === 0 ? (
+              {registeredUsersFromContactList &&
+              registeredUsersFromContactList.length === 0 ? (
                 <Text
                   mt={10}
                   fontSize={'12'}
