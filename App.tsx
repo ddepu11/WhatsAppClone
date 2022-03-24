@@ -1,7 +1,7 @@
 import { NativeBaseProvider } from 'native-base'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC } from 'react'
 import MainNavigation from './src/navigation/MainNavigation'
-import { AppState, AppStateStatus, LogBox } from 'react-native'
+import { LogBox } from 'react-native'
 import { Provider } from 'react-redux'
 import reduxStore from './redux/store'
 
